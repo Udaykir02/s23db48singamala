@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  - var image_names = ["horse1.webp", "horse2.avif", "horse3.jpeg", "horse4.jpeg", "horse5.jpeg"]
+  - for (let j = 0; j < 3; j++)
+    - let rand = Math.floor(Math.random() * image_names.length)
+    img(src=`/images/${image_names[rand]}`, alt=image_names[rand], height="300px", width="300px")
