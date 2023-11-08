@@ -27,9 +27,9 @@ exports.horses_detail = async function (req, res) {
 exports.horses_create_post = async function (req, res) {
     console.log(req.body);
     let document = new horses();
-    document.size = req.body.size;
-    document.colour = req.body.colour;
-    document.price = req.body.price;
+    document.horse_name = req.body.horse_name;
+    document.horse_age = req.body.horse_age ;
+    document.horse_price = req.body.horse_price;
     try {
         let results = await document.save();
         res.send(results);
@@ -55,12 +55,12 @@ exports.horses_delete = async function (req, res) {
 exports.horses_update_put = async function (req, res) {
     try {
         let horsesUpdate = await horses.findById(req.params.id);
-        if (req.body.size)
-            horsesUpdate.size = req.body.size;
-        if (req.body.colour)
-            horsesUpdate.colour = req.body.colour;
-        if (req.body.price)
-            horsesUpdate.price = req.body.price;
+        if (req.body.horse_name)
+            horsesUpdate.horse_name = req.body.horse_name;
+        if (req.body.horse_age)
+            horsesUpdate.horse_age = req.body.horse_age;
+        if (req.body.horse_price)
+            horsesUpdate.horse_price = req.body.horse_price;
         let result = await horsesUpdate.save();
         console.log("Successfully Updated the Horse " + result);
         res.send(result);
@@ -72,6 +72,7 @@ exports.horses_update_put = async function (req, res) {
 
 // VIEWS
 // Handle a show all view
+
 exports.horses_view_all_Page = async function (req, res) {
     try {
         thehorses = await horses.find();
