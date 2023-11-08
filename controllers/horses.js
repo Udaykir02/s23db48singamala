@@ -22,6 +22,7 @@ exports.horses_detail = async function (req, res) {
     }
 };
 
+
 // Handle Horse create on POST.
 exports.horses_create_post = async function (req, res) {
     console.log(req.body);
