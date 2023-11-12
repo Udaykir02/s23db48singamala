@@ -1,44 +1,39 @@
 extends layout
-
 block content
   h1= title
-  - let horseid = toShow._id
-  - let horse_name = toShow.horse_name 
-  - let horse_age = toShow.horse_age
-  - let horse_price = toShow.horse_price
-
+  - let horseid = toShow.horse_id
+  - let horse_name = toShow.horse_name
+  - let horseage = toShow.horse_age
+  - let horseprice = toShow.horse_price
   div.row(class='mb-2')
     div.mr-1 ID is
     div #{horseid}
-
-  - let actionid = "/resource/horse/" + horseid
-
+  - let actionid = "/resource/horses/" + horseid
   form(id='horseForm', action= actionid, method="PUT")
     div.form-group
       label.horseAttr(for='horse_name') Horse name
-      input#horse_name(type='text', name='horse_name', value= horse_name)
+      input#horse_name(type='text', name='horse_name', value= horse_name )
     div.form-group
-      label.horseAttr(for='horse_age') Horse age
-      input#horse_age(type='text', name='horse_age', value= horse_age)
+      label.horseAttr(for='horse_age') horse age
+      input#horse_age(type='text', name='horse_age', value= horseage )
     div.form-group
-      label.horseAttr(for='horse_price') Horse price
-      input#horse_price(type='number', name='horse_price', value= horse_price)
+      label.horseAttr(for='price') horse price
+      input#price(type='number', name='price', value= horseprice )
     input(type="submit")
-
     script.
-      document.forms['horseForm'].addEventListener('submit', (event) => {
+      document.forms.horseForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        // TODO do something here to show the user that the form is being submitted
+        // TODO do something here to show user that form is being submitted
         fetch(event.target.action, {
           method: 'PUT',
           body: new URLSearchParams(new FormData(event.target)) // event.target is the form
         }).then((resp) => {
           return resp.json(); // or resp.text() or whatever the server sends
         }).then((body) => {
-          alert("Update succeeded");
+          alert("Update succeeded")
           // TODO handle body
         }).catch((error) => {
           // TODO handle error
-          alert("Update failed: " + error);
+          alert("Update failed " + error )
         });
       });

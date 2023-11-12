@@ -93,3 +93,50 @@ exports.horses_view_one_Page = async function(req, res) {
         res.status(500).send({ error: err });
     }
 };
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.horses_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('horsescreate', { title: 'Costume Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+
+// Handle building the view for updating a costume.
+// query provides the id
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.horses_update_Page = async function(req, res) {
+console.log("update view for item "+req.query.id)
+try{
+let result = await horses.findById(req.query.id)
+res.render('horsesupdate', { title: 'Horses Update', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle a delete one view with id from query
+exports.horses_delete_Page = async function(req, res) {
+console.log("Delete view for id " + req.query.id)
+try{
+result = await horses.findById(req.query.id)
+    res.render('horsesdelete', { title: 'horse Delete', toShow:
+result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+}
+  

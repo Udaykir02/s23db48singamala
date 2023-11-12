@@ -35,3 +35,52 @@
   width: 120px;
   }
   
+#horseForm{
+  background-color: whitesmoke;
+  width: 325px;
+
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+/* styles.css */
+
+/* Add your custom styles here */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  color: #333;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.horseAttr {
+  font-weight: bold;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #5bc0de;
+  color: #fff;
+}

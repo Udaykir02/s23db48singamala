@@ -2,54 +2,32 @@ extends layout
 
 block content
   h1= title
-
-  if (toShow == null)
-    h2 No instance to delete
-  else
-    - let horseid = toShow._id
-    - let horse_name = toShow.horse_name
-    - let horse_age = toShow.horse_age
-    - let horse_price = toShow.horse_price
-    - let actionid = "/resource/horse/" + horseid
-    script.
-      let actionid = "#{actionid}"
-    div
-      div.row
-        div(class='horseAttr mr-3') Horse ID is:
-        div #{horseid}
-      div.row
-        div(class='horseAttr mr-3') Horse name is:
-        div #{horse_name}
-      div.row
-        div(class='horseAttr mr-3') Horse age is:
-        div #{horse_age}
-      div.row
-        div(class='horseAttr mr-3') Horse price is:
-        div #{horse_price}
-
-    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
-    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  form(id='horseForm', action="/resource/horses", method="POST")
+    div.form-group
+      label.horseAttr(for='horse_name') Horse Name
+      input#horse_name(type='text', name='horse_name')
+    div.form-group
+      label.horseAttr(for='age') Horse Age
+      input#age(type='text', name='age')
+    div.form-group
+      label.horseAttr(for='price') Horse Price
+      input#price(type='number', name='price')
+    input(type="submit")
 
   script.
-    function cancel() {
-      // Go back to the home page for the horse collection
-      window.location.href='/horse'
-    }
-
-  script.
-    function deleteOnid() {
-      console.log("starting delete");
-      // delete first
-      fetch(actionid, {
-        method: 'DELETE'      // Don't need a body for the delete
+    document.forms['horseForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show the user that the form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
       }).then((resp) => {
         return resp.json(); // or resp.text() or whatever the server sends
       }).then((body) => {
-        alert("Delete succeeded");
-        window.location.href='/horse';
+        alert("Save succeeded");
         // TODO handle body
       }).catch((error) => {
         // TODO handle error
-        alert("Delete failed " + error );
+        alert("Save failed: " + error);
       });
-    }
+    })
