@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  if(toShow == null)
+    h2 No instance to delete 
+  else
+    - let horseid = toShow._id
+    - let horse_name = toShow.horse_name
+    - let horse_age = toShow.horse_age
+    - let horse_price = toShow.horse_price
+    div
+      div.row
+        div(class='horseAttr mr-3') Horse ID is:
+        div #{horseid}
+      div.row
+        div(class='horseAttr mr-3') Horse name is:
+        div #{horse_name}
+      div.row
+        div(class='horseAttr mr-3') Horse age is:
+        div #{horse_age}
+      div.row
+        div(class='horseAttr mr-3') Horse Price is:
+        div #{horse_price}

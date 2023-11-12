@@ -1,61 +1,33 @@
-const express = require('express');
-const router = express.Router();
-const Horse = require('../models/horses');
+var express = require('express');
+const horses_controllers = require('../controllers/horses');
+var router = express.Router();
 
-// List of all Horses
-router.get('/', async (req, res) => {
-    try {
-        const horses = await Horse.find();
-        res.send(horses);
-    } catch (err) {
-        res.status(500).send(`{"error": ${err}}`);
+// A little function to check if we have an authorized user and continue on
+// or redirect to login.
+const secured = (req, res, next) => {
+    if (req.user) {
+        return next();
     }
-});
+    req.session.returnTo = req.originalUrl;
+    res.redirect("/login");
+}
 
-// Get details for a specific Horse.
-router.get('/:id', async (req, res) => {
-    try {
-        const detail = await Horse.findById(req.params.id);
-        console.log("Fetched the horse details " + detail);
-        res.send(detail);
-    } catch (error) {
-        res.status(500).send(`{"error": "Document for id ${req.params.id} not found"}`);
-    }
-});
+/* GET horses listing. */
+router.get('/', horses_controllers.horses_view_all_Page);
 
-// Handle Horse create on POST.
-router.post('/', async (req, res) => {
-    const { horse_name, horse_age, horse_price } = req.body;
-    const newHorse = new Horse({ horse_name, horse_age, horse_price });
-    
-    try {
-        const result = await newHorse.save();
-        res.send(result);
-    } catch (err) {
-        res.status(500).send(`{"error": ${err}}`);
-    }
-});
+// GET request for one horse.
+router.get('/horses/:id', horses_controllers.horses_detail);
 
-// Handle Horse delete on DELETE.
-router.delete('/:id', async (req, res) => {
-    try {
-        const result = await Horse.findByIdAndDelete(req.params.id);
-        console.log("Removed the following Horse " + result);
-        res.send(result);
-    } catch (err) {
-        res.status(500).send(`{"error": "Error deleting ${err}"}`);
-    }
-});
+/* GET detail horse page */
+router.get('/detail', horses_controllers.horses_view_one_Page);
 
-// Handle Horse update on PUT.
-router.put('/:id', async (req, res) => {
-    try {
-        const horseUpdate = await Horse.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        console.log("Successfully Updated the Horse " + horseUpdate);
-        res.send(horseUpdate);
-    } catch (err) {
-        res.status(500).send(`{"error": "${err}: Update for id ${req.params.id} failed"}`);
-    }
-});
+// /* GET create horse page */
+// router.get('/create', secured, horses_controllers.horses_create_Page);
+
+// /* GET update horse page */
+// router.get('/update', secured, horses_controllers.horses_update_Page);
+
+// /* GET delete horse page */
+// router.get('/delete', secured, horses_controllers.horses_delete_Page);
 
 module.exports = router;
