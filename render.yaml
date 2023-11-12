@@ -1,0 +1,5 @@
+version: 1
+buildCommand: npm install
+startCommand: npm run start
+env:
+  NODE_VERSION: 15.0.0  # Replace this with the desired Node.js version
