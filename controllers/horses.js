@@ -100,7 +100,7 @@ exports.horses_view_one_Page = async function(req, res) {
 exports.horses_create_Page = function(req, res) {
 console.log("create view")
 try{
-res.render('horsescreate', { title: 'Costume Create'});
+res.render('horsescreate', { title: 'Horse Create'});
 }
 catch(err){
 res.status(500)
