@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Horse = require('./models/horses'); // Check the path to the model file
 
 
-require('dotenv').config();
+
 const connectionString =process.env.MONGO_CON;
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
