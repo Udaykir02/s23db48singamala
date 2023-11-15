@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "npm install",
-    "start": "node -r dotenv/config ./bin/www"
+    "start": "node -r dotenv ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
