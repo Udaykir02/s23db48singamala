@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('f23wb48singamala:server');
 var http = require('http');
-require('dotenv').config();
 
 
 /**
