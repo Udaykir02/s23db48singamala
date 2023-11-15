@@ -8,7 +8,7 @@ const Horse = require('./models/horses'); // Check the path to the model file
 
 
 require('dotenv').config();
-const connectionString ="mongodb+srv://s564148:0rzNLg5AMhLLIyaJ@cluster0.xoykge7.mongodb.net/?retryWrites=true&w=majority"
+const connectionString =process.env.MONGO_CON;
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true
