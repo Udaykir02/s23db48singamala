@@ -10,7 +10,16 @@ block content
           p #{camera.horse_name}
           p age : #{camera.horse_age}
           p Price: $#{camera.horse_price}
+          - let destination = `dispatch(\"/horses/update?id=${camera._id}\")`
+          div(class="row-sm-2", class="m-1") Item #{camera.horse_name}(#{camera.horse_age}) is #{camera.horse_price}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
+          
     script.
       function buy(a) {
         alert("You purchased Item " + (a + 1));
       }
+      function dispatch(path){
+        window.location.href=path
+      }
+
+
