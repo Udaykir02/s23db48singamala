@@ -1,18 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to this #{title}
-  button.btn.btn-outline-success(type="button" onclick = "goFaster()") Press Me
-  div#faster Increase the speed 
-
-  script.
-    let mph = 20;
-    let change = 1;
-    function goFaster(){
-      mph += change;
-      change+=1;
-      document.getElementById('faster').textContent = `MPH ${mph} with change ${change}`;
-    }
-
-  a(href ="horse") horses page
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/horses") Take me to horses
+    br
+    a(href="/logout") Logout
