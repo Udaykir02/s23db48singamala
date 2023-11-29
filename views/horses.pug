@@ -2,26 +2,46 @@ extends layout
 
 block content
   h1= title
+  a.btn.btn-primary(href="/create") Create New Item
   - let items = results;
-
-  - var horse_arr = [{ _id: "1", horse_name: "Midnight Shadow", horse_age: 6, horse_price: 5500 },{ _id: "2", horse_name: "Thunderbolt", horse_age: 5, horse_price: 4200 },{ _id: "3", horse_name: "Starry Night", horse_age: 4, horse_price: 6800 }]
 
   div(class="container-fluid")
     div(class="row")
       each horse in items
-        div(class="col-sm-2", onclick=`buy("${horse._id}")`)
+        div(class="col-sm-2")
           p #{horse.horse_name}
-          p age : #{horse.horse_age}
+          p age: #{horse.horse_age}
           p Price: $#{horse.horse_price}
-          div(class="row-sm-2", class="m-1") Item #{horse.horse_name}(#{horse.horse_age}) is #{horse.horse_price}
-          button.btn(class="btn-primary ml-1", onclick=`update("${horse._id}")`) Update
-          
+          a.btn.btn-info(href=`horses/detail?id=${horse._id}`) View Details
+          button.btn.btn-primary.ml-1(onclick=`update("${horse._id}")`) Update
+          button.btn.btn-danger.ml-1(onclick=`delete("${horse._id}")`) Delete
+
   script.
     function buy(id) {
       alert("You purchased Item " + id);
     }
 
     function update(id) {
-      // Assuming you want to update the horse with the specified ID
       window.location.href = `/horses/update?id=${id}`;
     }
+
+    function delete(id) {
+      var confirmation = confirm("Are you sure you want to delete this item?");
+      if (confirmation) {
+        // Assuming you want to delete the horse with the specified ID
+        fetch(`/horses/delete?id=${id}`, {
+          method: 'DELETE'
+        }).then((resp) => {
+          if (resp.ok) {
+            alert("Delete succeeded");
+            window.location.reload(); // or redirect to the collection page
+          } else {
+            alert("Delete failed");
+          }
+        }).catch((error) => {
+          console.error('Error:', error);
+        });
+      }
+    }
+
+  // ... (rest of the code)
