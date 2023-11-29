@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  a.btn.btn-primary(href="/create") Create New Item
+  a.btn.btn-primary(href="horses/create") Create New Item
   - let items = results;
 
   div(class="container-fluid")
@@ -13,8 +13,9 @@ block content
           p age: #{horse.horse_age}
           p Price: $#{horse.horse_price}
           a.btn.btn-info(href=`horses/detail?id=${horse._id}`) View Details
-          button.btn.btn-primary.ml-1(onclick=`update("${horse._id}")`) Update
-          button.btn.btn-danger.ml-1(onclick=`delete("${horse._id}")`) Delete
+          a.btn.btn-info(href=`horses/update?id=${horse._id}`) Update 
+          a.btn.btn-info(href=`horses/delete?id=${horse._id}`) Delete
+          
 
   script.
     function buy(id) {
