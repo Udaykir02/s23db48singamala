@@ -2,24 +2,26 @@ extends layout
 
 block content
   h1= title
-  - var horse_arr = [{ horse_name: "Midnight Shadow", horse_age: 6, horse_price: 5500 },{ horse_name: "Thunderbolt", horse_age: 5, horse_price: 4200 },{ horse_name: "Starry Night", horse_age: 4, horse_price: 6800 }]
+  - let items = results;
+
+  - var horse_arr = [{ _id: "1", horse_name: "Midnight Shadow", horse_age: 6, horse_price: 5500 },{ _id: "2", horse_name: "Thunderbolt", horse_age: 5, horse_price: 4200 },{ _id: "3", horse_name: "Starry Night", horse_age: 4, horse_price: 6800 }]
+
   div(class="container-fluid")
     div(class="row")
-      each camera, index in horse_arr
-        div(class="col-sm-2" onclick = `buy(${index})`)
-          p #{camera.horse_name}
-          p age : #{camera.horse_age}
-          p Price: $#{camera.horse_price}
-          - let destination = `dispatch(\"/horses/update?id=${camera._id}\")`
-          div(class="row-sm-2", class="m-1") Item #{camera.horse_name}(#{camera.horse_age}) is #{camera.horse_price}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
+      each horse in items
+        div(class="col-sm-2", onclick=`buy("${horse._id}")`)
+          p #{horse.horse_name}
+          p age : #{horse.horse_age}
+          p Price: $#{horse.horse_price}
+          div(class="row-sm-2", class="m-1") Item #{horse.horse_name}(#{horse.horse_age}) is #{horse.horse_price}
+          button.btn(class="btn-primary ml-1", onclick=`update("${horse._id}")`) Update
           
-    script.
-      function buy(a) {
-        alert("You purchased Item " + (a + 1));
-      }
-      function dispatch(path){
-        window.location.href=path
-      }
+  script.
+    function buy(id) {
+      alert("You purchased Item " + id);
+    }
 
-
+    function update(id) {
+      // Assuming you want to update the horse with the specified ID
+      window.location.href = `/horses/update?id=${id}`;
+    }

@@ -8,7 +8,6 @@ const secured = (req, res, next) => {
     if (req.user) {
         return next();
     }
-    req.session.returnTo = req.originalUrl;
     res.redirect("/login");
 }
 
@@ -22,10 +21,10 @@ router.get('/horses/:id', horses_controllers.horses_detail);
 router.get('/detail', horses_controllers.horses_view_one_Page);
 
 // /* GET create horse page */
- router.get('/create', horses_controllers.horses_create_Page);
+router.get('/create', horses_controllers.horses_create_Page);
 
 // /* GET update horse page */
-router.get('/update', horses_controllers.horses_update_Page);
+router.get('/update', secured, horses_controllers.horses_update_Page);
 
 // /* GET delete horse page */
 router.get('/delete', horses_controllers.horses_delete_Page);
